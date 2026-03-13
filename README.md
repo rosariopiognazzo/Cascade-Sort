@@ -48,6 +48,7 @@ The partitioning function attempts to extract the longest possible sorted sequen
 | Case | Time Complexity | Space Complexity |
 |------|----------------|-----------------|
 | Worst Case | $O(n^2)$ | $O(n)$ |
+| Avarage Case | $O(n \log k)$ | $O(n)$ |
 | Best Case | $O(n)$ | $O(n)$ |
 
 > ⚠️ In the worst case (descending order), the algorithm must repeatedly scan the remaining data, leading to quadratic cost in the partitioning phase.
@@ -61,6 +62,7 @@ By implementing a **linear (one-pass) partitioning**, efficiency improves drasti
 | Case | Time Complexity | Space Complexity |
 |------|----------------|-----------------|
 | Worst Case | $O(n \log n)$ | $O(n)$ |
+| Avarage Case | $O(n \log k)$ | $O(n)$ |
 | Best Case | $O(n)$ | $O(n)$ |
 
 - **Partitioning**: $O(n)$
