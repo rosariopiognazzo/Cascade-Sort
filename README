@@ -1,0 +1,46 @@
+# CascadeSort
+
+CascadeSort is an adaptive sorting algorithm designed to leverage the partial order already present within a data sequence. The algorithm decomposes the input sequence into several sorted subsequences (runs) and recombines them into a single sorted set using a Min-Heap data structure.
+
+## Algorithm Logic
+
+The fundamental principle of CascadeSort is that any list of numbers is composed of pre-existing sorted subsequences that can be identified and extracted. Unlike other algorithms, these sequences do not necessarily consist of contiguous values in the initial sequence's memory but can be "picked" throughout the entire list.
+
+The process consists of two main phases:
+
+1. **Partitioning**: The input sequence is analyzed to extract chains of elements that satisfy the ascending order condition. Each extracted chain forms a subsequence ready for the next phase.
+2. **Merging**: All identified subsequences are merged using a Min-Heap. This structure allows for the constant extraction of the minimum element among all subsequence heads, ensuring efficient merging into a final sorted sequence.
+
+## Complexity Analysis
+
+The algorithm's performance varies significantly based on the adopted partitioning strategy.
+
+### Vanilla Case (Original Version)
+In the original implementation, the partitioning function attempts to extract the longest possible sorted sequence by iteratively filtering the remaining elements.
+
+* **Time Complexity (Worst Case)**: $O(n^2)$. If the sequence is sorted in descending order, the algorithm must repeatedly scan the remaining data, leading to a quadratic cost in the partitioning phase.
+* **Time Complexity (Best Case)**: $O(n)$, in the event that the list is already completely sorted.
+* **Space Complexity**: $O(n)$ for storing the extracted subsequences.
+
+### Optimized Case (Timsort Logic)
+By implementing a linear (one-pass) partitioning, efficiency improves drastically.
+
+* **Time Complexity (Worst Case)**: $O(n \log n)$. Partitioning occurs in $O(n)$, and merging the $k$ subsequences via Min-Heap requires $O(n \log k)$, where $k \le n$.
+* **Time Complexity (Best Case)**: $O(n)$.
+* **Adaptivity**: This version is particularly efficient on partially sorted data, as the cost depends on the number of natural "runs" present in the original data.
+
+## Usage Example
+
+To test the algorithm, you can import the `CascadeSort` function and pass a list of comparable elements to it:
+
+```python
+from CascadeSort import CascadeSort
+
+# Definition of an unsorted sequence
+data = [12, 1, 5, 8, 3, 4, 10, 2, 7, 9]
+
+# Execution of the algorithm
+sorted_data = CascadeSort(data)
+
+print(f"Original: {data}")
+print(f"Sorted:   {sorted_data}")
