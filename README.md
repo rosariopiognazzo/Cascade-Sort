@@ -1,4 +1,4 @@
-# CascadeSort
+# Cascade Sort
 
 > An adaptive sorting algorithm that leverages the partial order already present in a data sequence.
 
