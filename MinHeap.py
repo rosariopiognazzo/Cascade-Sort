@@ -85,28 +85,3 @@ class MinHeap:
                 break
             
         return root
-    
-    def describeHeap(self):
-        '''Method that show for each node its child and parent (if they exists).'''
-        if not self._array:
-            print("(empty heap)")
-            return
-        
-        n = len(self._array)
-        
-        for i in range(n):
-            node = self._array[i]
-            
-            parent = None
-            if i > 0:
-                parent = self._array[(i-1)//2]
-                
-            left = None
-            if 2*i + 1 < n:
-                left = self._array[2*i + 1]
-                
-            right = None
-            if 2*i + 2 < n:
-                right = self._array[2*i + 2]
-            
-            print(f"nodo {node} -> parent: {parent}, left child: {left}, right child: {right}")
