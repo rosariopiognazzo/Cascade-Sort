@@ -20,7 +20,7 @@
 
 ## Overview
 
-**CascadeSort** decomposes an input sequence into sorted subsequences (called *runs*) and recombines them into a single sorted sequence using a **Min-Heap** data structure.
+**CascadeSort** decomposes an input sequence into sorted subsequences and recombines them into a single sorted sequence using a **Min-Heap** data structure.
 
 The key insight is that most real-world data already contains partial order — CascadeSort identifies and exploits this structure instead of ignoring it.
 
@@ -39,9 +39,9 @@ The process consists of two main phases:
 
 ## Complexity Analysis
 
-The algorithm's performance varies based on the adopted partitioning strategy.
+The algorithm's performance varies based on the adopted **partitioning strategy**.
 
-### Vanilla Case (Original Version)
+### Vanilla Version
 
 The partitioning function attempts to extract the longest possible sorted sequence by iteratively filtering the remaining elements.
 
@@ -55,9 +55,9 @@ The partitioning function attempts to extract the longest possible sorted sequen
 
 ---
 
-### Optimized Case (Timsort Logic)
+### Optimized Version
 
-By implementing a **linear (one-pass) partitioning**, efficiency improves drastically.
+By implementing a **linear (one-pass) partitioning**, efficiency improves drastically. Like the idea of ​​Timsort implemented natively in Python.
 
 | Case | Time Complexity | Space Complexity |
 |------|----------------|-----------------|
@@ -71,26 +71,40 @@ By implementing a **linear (one-pass) partitioning**, efficiency improves drasti
 
 ---
 
-## Usage Example
+## Example of execution
 
-Import the `CascadeSort` function and pass any list of comparable elements:
-
-```python
-from CascadeSort import CascadeSort
-
-# Definition of an unsorted sequence
-data = [12, 1, 5, 8, 3, 4, 10, 2, 7, 9]
-
-# Execution of the algorithm
-sorted_data = CascadeSort(data)
-
-print(f"Original: {data}")
-print(f"Sorted:   {sorted_data}")
-```
-
-**Output:**
 ```
 Original: [12, 1, 5, 8, 3, 4, 10, 2, 7, 9]
+
+- Partitioning Phase
+Iter 1:
+[12]                                        ordered sub-sequence
+[1, 5, 8, 3, 4, 10, 2, 7, 9]                remained sequence
+
+Iter 2:
+[12]                                        ordered sub-sequence
+[1, 5, 8, 10]                               ordered sub-sequence
+[3, 4, 2, 7, 9]                             remained sequence
+
+Iter 3:
+[12]                                        ordered sub-sequence
+[1, 5, 8, 10]                               ordered sub-sequence
+[3, 4, 7, 9]                                ordered sub-sequence
+[2]                                         ordered sub-sequence
+
+- Merge Phase
+[12]            [1, 5, 8, 10]    [3, 4, 7, 9]    [2]
+  |               |                |              |
+ (12)            (1)              (3)            (2)
+  \               \               /              /
+   \ .Add()        \ .Add()      / .Add()       / .Add()
+    \               \           /              /
+     >-------------- [ MIN-HEAP ] ------------<
+                          |
+                          | .Pop()
+                          |
+              Sorted Output: [1, 2, 3, 4, ...]
+
 Sorted:   [1, 2, 3, 4, 5, 7, 8, 9, 10, 12]
 ```
 
